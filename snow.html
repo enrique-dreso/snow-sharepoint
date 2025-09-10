@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Animación de nieve</title>
+  <title>Snow Animation</title>
   <style>
     body {
       margin: 0;
@@ -11,7 +11,7 @@
       background: transparent;
     }
 
-    .dresoci-snowflakes {
+    .snowflakes {
       position: fixed;
       top: 0;
       left: 0;
@@ -21,7 +21,7 @@
       z-index: 9999;
     }
 
-    .dresoci-snowflake {
+    .snowflake {
       color: #fff;
       font-family: Arial, sans-serif;
       text-shadow: 0 0 5px #000;
@@ -39,44 +39,37 @@
   </style>
 </head>
 <body>
-  <div id="dresoci-snow-animation" class="dresoci-snowflakes" aria-hidden="true"></div>
+  <div id="snow-animation" class="snowflakes" aria-hidden="true"></div>
 
   <script>
-    // Configuración
-    const SNOW_COUNT = 30; // cantidad de copos
-    const snowContainer = document.getElementById('dresoci-snow-animation');
+    const SNOW_COUNT = 30; // number of snowflakes
+    const snowContainer = document.getElementById('snow-animation');
 
-    // Controlar si ya se mostró (como tu christmas.js original)
-    const snowShown = sessionStorage.getItem('snowShown');
-    if (snowShown === 'true') {
-      snowContainer.style.display = 'none';
-    } else {
-      sessionStorage.setItem('snowShown', 'true');
-      snowContainer.style.display = 'block';
+    for (let i = 0; i < SNOW_COUNT; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
 
-      for (let i = 0; i < SNOW_COUNT; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.className = 'dresoci-snowflake';
-        snowflake.innerHTML = '❅';
+      // pick a random symbol ❅ ❆ ✻ ✼
+      const symbols = ['❅','❆','✻','✼'];
+      snowflake.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
 
-        // Tamaño aleatorio (10px a 25px)
-        const size = Math.random() * 15 + 10;
-        snowflake.style.fontSize = size + 'px';
+      // random size (10px to 25px)
+      const size = Math.random() * 15 + 10;
+      snowflake.style.fontSize = size + 'px';
 
-        // Posición horizontal aleatoria
-        const posX = Math.random() * 100;
-        snowflake.style.left = posX + 'vw';
+      // random horizontal position
+      const posX = Math.random() * 100;
+      snowflake.style.left = posX + 'vw';
 
-        // Duración de caída aleatoria (8s a 20s)
-        const duration = Math.random() * 12 + 8;
-        snowflake.style.animationDuration = duration + 's';
+      // random fall duration (8s to 20s)
+      const duration = Math.random() * 12 + 8;
+      snowflake.style.animationDuration = duration + 's';
 
-        // Retraso aleatorio para que no caigan todos a la vez
-        const delay = Math.random() * 15;
-        snowflake.style.animationDelay = delay + 's';
+      // random delay
+      const delay = Math.random() * 15;
+      snowflake.style.animationDelay = delay + 's';
 
-        snowContainer.appendChild(snowflake);
-      }
+      snowContainer.appendChild(snowflake);
     }
   </script>
 </body>
